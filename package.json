@@ -1,0 +1,30 @@
+{
+  "name": "projectsdc-bit-ratings-and-reviews",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start-server": "npx nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpp36-sdc-bit/rpp36-gene-ratings-and-reviews.git"
+  },
+  "author": "Gene Yang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rpp36-sdc-bit/rpp36-gene-ratings-and-reviews/issues"
+  },
+  "homepage": "https://github.com/rpp36-sdc-bit/rpp36-gene-ratings-and-reviews#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^28.1.3",
+    "superagent": "^8.0.0",
+    "supertest": "^6.2.4"
+  }
+}
