@@ -10,7 +10,7 @@ in order to run this .sql file in cli,
     \dreviews (etc...)
 */
 
-DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS products CASCADE;
 CREATE TABLE products (
   id int NOT NULL PRIMARY KEY,
   totalreviews int,
@@ -24,23 +24,24 @@ CREATE TABLE products (
   recommendtrue int
 );
 
-DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
   id int NOT NULL PRIMARY KEY,
   productid int,
   ratings int,
   summary text,
   recommend boolean,
+  reported boolean,
   response text,
   body text,
   date date,
   reviewername text,
+  revieweremail text,
   helpfulness int,
-  photos int,
   FOREIGN KEY (productid) REFERENCES products (id)
 );
 
-DROP TABLE IF EXISTS photos;
+DROP TABLE IF EXISTS photos CASCADE;
 CREATE TABLE photos (
   id int NOT NULL PRIMARY KEY,
   reviewid int,
@@ -48,7 +49,7 @@ CREATE TABLE photos (
   FOREIGN KEY (reviewid) REFERENCES reviews (id)
 );
 
-DROP TABLE IF EXISTS characteristics;
+DROP TABLE IF EXISTS characteristics CASCADE;
 CREATE TABLE characteristics (
   id int NOT NULL PRIMARY KEY,
   productid int,
@@ -57,7 +58,7 @@ CREATE TABLE characteristics (
   FOREIGN KEY (productid) REFERENCES products (id)
 );
 
-DROP TABLE IF EXISTS characteristicsreviews;
+DROP TABLE IF EXISTS characteristicsreviews CASCADE;
 CREATE TABLE characteristicsreviews (
   id int NOT NULL PRIMARY KEY,
   characteristicid int,
