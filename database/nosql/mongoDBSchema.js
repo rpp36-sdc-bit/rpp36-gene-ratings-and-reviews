@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
-let PhotosSchema = mongoose.Schema({
-  id: Number,
+let PhotoSchema = mongoose.Schema({
+  _id: Number,
   url: String
 });
 
-let ReviewsSchema = mongoose.Schema({
-  review_id: Number,
+let ReviewSchema = mongoose.Schema({
+  _id: Number,
   rating: Number,
   summary: String,
   recommend: Boolean,
@@ -15,13 +15,13 @@ let ReviewsSchema = mongoose.Schema({
   body: String,
   date: Date,
   reviewer_name: String,
+  reviewer_email: String,
   helpfulness: Number,
   photos: [PhotosSchema]
 });
 
-let ProductReviewsSchema = mongoose.Schema({
+let ProductSchema = mongoose.Schema({
   _id: Number,
-  product: Number,
   reviews: [ReviewsSchema],
   ratings: {
     ratings1: Number,
@@ -46,14 +46,29 @@ let ProductReviewsSchema = mongoose.Schema({
   }
 });
 
-let ProductReviewsSchema = mongoose.model('ProductReviewsSchema', ProductReviewsSchema);
+let Product = mongoose.model('Product', ProductSchema, 'reviews');
+let Review = mongoose.model('Review', ReviewSchema, 'reviews');
+let Photo = mongoose.model('Photo', PhotoSchema, 'reviews');
 
-let readRatingsAndReviews = function (productid, cb) {
-  ProductReviewsSchema.findOne({_id: productid}, (err, res) => {
+let readReview = function (productid, cb) {
+  Product.findOne({_id: productid}, (err, res) => {
     if (err) {
-      cb(`error: ${err}`);
+      cb(err, null);
     } else {
-      cb(res)
+      cb(null, res)
+    }
+  })
+}
+
+let createProduct = function (productid, cb) {
+
+}
+
+let writeReview = function (productid, review, cb) {
+  Product.findOne({_id: productid}, (err, res) => {
+    if (err) {
+      cb(err, null);
+    } else {
     }
   })
 }
