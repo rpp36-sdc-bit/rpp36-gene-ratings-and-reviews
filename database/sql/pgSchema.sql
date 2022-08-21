@@ -14,7 +14,6 @@ DROP TABLE IF EXISTS products CASCADE;
 CREATE TABLE products (
   id int NOT NULL PRIMARY KEY,
   totalreviews int,
-  ratings int,
   ratings1 int,
   ratings2 int,
   ratings3 int,
