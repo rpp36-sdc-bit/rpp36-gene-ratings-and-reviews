@@ -25,16 +25,33 @@ app.get('/reviews', (req, res) => {
 })
 
 app.get('/reviews/meta', (req, res) => {
-  console.log(req.query)
-  // db.meta(1, (data) => {
-  //   res.send(data)
-  // })
-  res.status(200).send('got it')
+  db.metaAlt(req.query, (error, data) => {
+    if (error) {
+      res.status(400).send(error)
+    } else {
+      res.status(200).send(data)
+    }
+  })
+})
+
+app.get('/reviews/meta/alt', (req, res) => {
+  db.meta(req.query, (error, data) => {
+    if (error) {
+      res.status(400).send(error)
+    } else {
+      res.status(200).send(data)
+    }
+  })
 })
 
 app.post('/reviews', (req, res) => {
-  console.log(req.query)
-  res.status(201).send('got it')
+  db.post(req.body, (error, data) => {
+    if (error) {
+      res.status(400).send(error)
+    } else {
+      res.status(201).send(data)
+    }
+  })
 })
 
 app.put('/reviews/:review_id/helpful', (req, res) => {
