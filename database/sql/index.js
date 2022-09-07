@@ -1,5 +1,4 @@
 const pgQuery = require('./pgQueries.js')
-const Promise = require('bluebird')
 
 const reviews = (reqParams, cb) => {
   let sort = 'helpfulness'
@@ -15,16 +14,17 @@ const reviews = (reqParams, cb) => {
       let reviewCountObj = {}
       data.forEach((review) => {
         if (reviewCountObj[review.reviewsid] === undefined) {
-          console.log(review.response)
+          let date = new Date(parseInt(review.date))
+          date = date.toJSON()
           let reviewobj = {
             review_id: review.reviewsid,
             rating: review.ratings,
-            summary: review.summary.substring(1, review.summary.length - 1),
+            summary: review.summary,
             recommend: review.recommend,
-            response: review.response === "null" || review.response === null ? null : review.response.substring(1, review.response.length - 1),
-            body: review.body.substring(1, review.body.length - 1),
-            date: review.date,
-            reviewer_name: review.reviewername.substring(1, review.reviewername.length - 1),
+            response: review.response === "null" || review.response === null ? null : review.response,
+            body: review.body,
+            date: date,
+            reviewer_name: review.reviewername,
             helpfulness: review.helpfulness,
             photos: []
           }
@@ -101,7 +101,7 @@ const meta = (reqParams, cb) => {
       characteristics: {}
     }
     results[1].forEach(char => {
-      res.characteristics[char.name.substring(1, char.name.length - 1)] = {
+      res.characteristics[char.name] = {
         id: char.id,
         value: char.rating
       }

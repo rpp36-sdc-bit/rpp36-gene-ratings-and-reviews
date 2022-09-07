@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "start-server": "npx nodemon server.js"
   },
   "repository": {

@@ -41,7 +41,7 @@ const csvimport = async function (pginsert, csvpath, tablename) {
 //pg transform and load into db
 const reviewInsert = (data, startTime, cb) => {
   const insertProd = {
-    text: 'INSERT INTO products(id) VALUES ($1) ON CONFLICT DO NOTHING',
+    text: 'INSERT INTO products(productid) VALUES ($1) ON CONFLICT DO NOTHING',
     values: [data[1]]
   }
   pool
@@ -53,7 +53,7 @@ const reviewInsert = (data, startTime, cb) => {
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, to_timestamp($9), $10, $11, $12) \
           ON CONFLICT DO NOTHING',
         values: [data[0], data[1], data[2], data[4], data[6], data[7], data[10],
-          data[5], data[3]/1000.0, data[8], data[9], data[11]]
+          data[5], data[3], data[8], data[9], data[11]]
       }
       pool
         .query(insertReview)
