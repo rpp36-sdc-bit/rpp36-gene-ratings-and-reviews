@@ -10,6 +10,9 @@ in order to run this .sql file in cli,
     \dreviews (etc...)
 */
 
+-- CREATE DATABASE sdcratingsnreviews;
+-- psql sdcratingsnreviews;
+
 DROP TABLE IF EXISTS products CASCADE;
 CREATE TABLE products (
   productid SERIAL PRIMARY KEY,
