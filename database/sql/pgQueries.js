@@ -5,7 +5,7 @@ const getReviews = (productid, orderby, cb) => {
   if (orderby === 'newest') {
     ordertext = 'ORDER BY date DESC'
   }
-  const startTime = new Date()
+  //const startTime = new Date()
   const reviews = {
     text: 'SELECT reviews.id as reviewsid, reviews.ratings, reviews.summary, reviews.recommend, \
     reviews.reported, reviews.response, reviews.body, reviews.date, reviews.reviewername, \
@@ -17,9 +17,9 @@ const getReviews = (productid, orderby, cb) => {
     .query(reviews)
     .then((res) => {
       const data = res.rows
-      const endTime = new Date()
-      const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
-      console.log(`query time: ${elapsedTime} seconds`)
+      //const endTime = new Date()
+      //const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
+      //console.log(`query time: ${elapsedTime} seconds`)
       cb(null, data)
     })
     .catch(e => {
@@ -30,19 +30,19 @@ const getReviews = (productid, orderby, cb) => {
 
 // Method 1: product metadata precalculated and stored directly in Product db table
 const getReviewsProdMeta = (productid, cb) => {
-  const startTime = new Date()
+  //const startTime = new Date()
   const prodMeta = {
     text: 'SELECT totalreviews, ratings1, ratings2, ratings3, ratings4, ratings5, \
-    recommendfalse, recommendtrue FROM products where id = $1',
+    recommendfalse, recommendtrue FROM products where productid = $1',
     values: [productid]
   }
   pool
     .query(prodMeta)
     .then((res) => {
       const data = res.rows
-      const endTime = new Date()
-      const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
-      console.log(`query time: ${elapsedTime} seconds`)
+      //const endTime = new Date()
+      //const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
+      //console.log(`query time: ${elapsedTime} seconds`)
       cb(null, data)
     })
     .catch(e => {
@@ -53,7 +53,7 @@ const getReviewsProdMeta = (productid, cb) => {
 
 // Method 2: query reviews and calculate product metadata
 const queryProductMeta = (productid, cb) => {
-  const startTime = new Date()
+  //const startTime = new Date()
   const prodLookUp = {
     text: 'SELECT ratings, recommend FROM reviews WHERE productid = $1',
     values: [productid]
@@ -63,9 +63,9 @@ const queryProductMeta = (productid, cb) => {
     .then((res) => {
       const data = res.rows;
       let reviewCount = data.length;
-      const endTime = new Date()
-      const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
-      console.log(`query time: ${elapsedTime} seconds`)
+      //const endTime = new Date()
+      //const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
+      //console.log(`query time: ${elapsedTime} seconds`)
       if (reviewCount > 0) {
         let product = {
           id: productid,
@@ -100,7 +100,7 @@ const queryProductMeta = (productid, cb) => {
 
 // Method 1: Characteristic metadata stored directly on Characteristics db table
 const getReviewsCharMeta = (productid, cb) => {
-  const startTime = new Date()
+  //const startTime = new Date()
   const charMeta = {
     text: 'SELECT id, name, rating FROM characteristics WHERE productid = $1',
     values: [productid]
@@ -109,9 +109,9 @@ const getReviewsCharMeta = (productid, cb) => {
     .query(charMeta)
     .then((res) => {
       const data = res.rows
-      const endTime = new Date()
-      const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
-      console.log(`query time: ${elapsedTime} seconds`)
+      //const endTime = new Date()
+      //const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
+      //console.log(`query time: ${elapsedTime} seconds`)
       cb(null, data)
     })
     .catch(e => {
@@ -122,7 +122,7 @@ const getReviewsCharMeta = (productid, cb) => {
 
 // Method 2: query characteristics and calculate characteristics metadata
 const queryCharMeta = (productid, cb) => {
-  const startTime = new Date()
+  //const startTime = new Date()
   const charMeta = {
     text: 'SELECT characteristics.id, name, value FROM characteristics LEFT OUTER JOIN \
     characteristicsreviews on characteristics.id = characteristicsreviews.characteristicid \
@@ -133,13 +133,13 @@ const queryCharMeta = (productid, cb) => {
     .query(charMeta)
     .then((res) => {
       const data = res.rows
-      const endTime = new Date()
-      const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
-      console.log(`query time: ${elapsedTime} seconds`)
+      //const endTime = new Date()
+      //const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
+      //console.log(`query time: ${elapsedTime} seconds`)
       let chars = {}
       let charids = {}
       data.forEach(row => {
-        row.name = row.name.substring(1, row.name.length - 1)
+        row.name = row.name
         if (chars[row.name]) {
           chars[row.name].push(row.value)
         } else {
@@ -205,9 +205,9 @@ const postReview = (review, cb) => {
           pool
             .query(inserttext)
             .then(() => {
-              const endTime = new Date()
-              const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
-              console.log(`query time: ${elapsedTime} seconds`)
+              //const endTime = new Date()
+              //const elapsedTime = ((endTime - startTime)/1000).toFixed(4)
+              //console.log(`query time: ${elapsedTime} seconds`)
               cb(null, 'Created')
             })
             .catch(e => {

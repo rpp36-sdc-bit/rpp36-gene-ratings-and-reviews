@@ -4,8 +4,8 @@ const app = express()
 
 //PostgreSQL database
 const db = require('./database/sql/index.js')
-const pgETL = require('./database/sql/pgETL.js')
-const pgETLmeta = require('./database/sql/pgETLmeta.js')
+// const pgETL = require('./database/sql/pgETL.js')
+// const pgETLmeta = require('./database/sql/pgETLmeta.js')
 
 // //MongoDB database
 // const db = require('./database/nosql/mongoDBSchema.js')
@@ -64,32 +64,32 @@ app.put('/reviews/:review_id/report', (req, res) => {
   res.status(204).send()
 })
 
-// import legacy data routes
-app.post('/importreviewcsv', (req, res) => {
-  pgETL.importreviews()
-  res.send('importing reviews csv')
-})
+// import legacy data routes (DEPRECIATED - use pg csv copy from pgETL.sql)
+// app.post('/importreviewcsv', (req, res) => {
+//   pgETL.importreviews()
+//   res.send('importing reviews csv')
+// })
 
-app.post('/importphotoscsv', (req, res) => {
-  pgETL.importphotos()
-  res.send('importing photos csv')
-})
+// app.post('/importphotoscsv', (req, res) => {
+//   pgETL.importphotos()
+//   res.send('importing photos csv')
+// })
 
-app.post('/importcharcsv', (req, res) => {
-  pgETL.importchar()
-  res.send('importing characteristics csv')
-})
+// app.post('/importcharcsv', (req, res) => {
+//   pgETL.importchar()
+//   res.send('importing characteristics csv')
+// })
 
-app.post('/importcharreviewcsv', (req, res) => {
-  pgETL.importcharReview()
-  res.send('importing characteristics reviews csv')
-})
+// app.post('/importcharreviewcsv', (req, res) => {
+//   pgETL.importcharReview()
+//   res.send('importing characteristics reviews csv')
+// })
 
-app.post('/updateproductmeta', (req, res) => {
-  console.log(`$-----Product Metadata generation started-----$`)
-  let startTime = new Date()
-  pgETLmeta.updateProductMetaAll(10,1,startTime)
-  res.send('updating product meta')
-})
+// app.post('/updateproductmeta', (req, res) => {
+//   console.log(`$-----Product Metadata generation started-----$`)
+//   let startTime = new Date()
+//   pgETLmeta.updateProductMetaAll(10,1,startTime)
+//   res.send('updating product meta')
+// })
 
 module.exports = app;
