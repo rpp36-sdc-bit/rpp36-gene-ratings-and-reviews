@@ -10,6 +10,9 @@ const db = require('./database/sql/index.js')
 // //MongoDB database
 // const db = require('./database/nosql/mongoDBSchema.js')
 
+require("dotenv").config()
+const loaderio = process.env.loaderio
+
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
@@ -62,6 +65,10 @@ app.put('/reviews/:review_id/helpful', (req, res) => {
 app.put('/reviews/:review_id/report', (req, res) => {
   console.log(req.params)
   res.status(204).send()
+})
+
+app.get('/' + loaderio, (req, res) => {
+  res.status(200).sendFile(__dirname + '/' + loaderio + '.txt')
 })
 
 // import legacy data routes (DEPRECIATED - use pg csv copy from pgETL.sql)
