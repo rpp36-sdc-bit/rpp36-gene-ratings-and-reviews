@@ -2,6 +2,9 @@
 const express = require('express')
 const app = express()
 
+//new relic
+require('newrelic');
+
 //PostgreSQL database
 const db = require('./database/sql/index.js')
 // const pgETL = require('./database/sql/pgETL.js')
