@@ -1,3 +1,6 @@
+//New Relic
+//require('newrelic');
+
 //server.js
 const app = require("./app");
 const port = 1337
